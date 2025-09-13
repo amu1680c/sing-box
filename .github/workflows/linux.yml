@@ -109,5 +109,5 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: my-build
-          path: ./dist/sing-box/*
+          name: sing-box
+          path: ./dist/sing-box
