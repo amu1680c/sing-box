@@ -106,24 +106,8 @@ jobs:
           PKG_VERSION="${{ needs.calculate_version.outputs.version }}"
           PKG_VERSION="${PKG_VERSION//-/\~}"
           echo "PKG_VERSION=${PKG_VERSION}" >> "${GITHUB_ENV}"
-  upload:
-    name: Upload builds
-    runs-on: ubuntu-latest
-    needs:
-      - calculate_version
-      - build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      - name: Upload
+        uses: actions/upload-artifact@v4
         with:
-          fetch-depth: 0
-      - name: Set tag
-        run: |-
-          git ls-remote --exit-code --tags origin v${{ needs.calculate_version.outputs.version }} || echo "PUBLISHED=false" >> "$GITHUB_ENV"
-          git tag v${{ needs.calculate_version.outputs.version }} -f
-          echo "VERSION=${{ needs.calculate_version.outputs.version }}" >> "$GITHUB_ENV"
-      - name: Download builds
-        uses: actions/download-artifact@v5
-        with:
-          path: dist
-          merge-multiple: true
+          name: my-build
+          path: ./dist/sing-box/*
