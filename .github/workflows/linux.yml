@@ -68,7 +68,8 @@ jobs:
       - name: Setup Go 1.23
         run: |-
           echo "PATH=$HOME/go/go_legacy/bin:$PATH" >> $GITHUB_ENV
-          echo "GOROOT=$HOME/go/go_legacy" >> $GITHUB_ENV      - name: Check input version
+          echo "GOROOT=$HOME/go/go_legacy" >> $GITHUB_ENV
+      - name: Check input version
         if: github.event_name == 'workflow_dispatch'
         run: |-
           echo "version=${{ inputs.version }}"
